@@ -66,10 +66,10 @@ return [
 
         'pgsql' => [
             'driver'   => 'pgsql',
-            'host'      => getenv("JAWSDB_URL") ? parse_url(getenv("DATABASE_URL"))["host"] : env('DB_HOST'),
-            'database'  => getenv("JAWSDB_URL") ? substr(parse_url(getenv("DATABASE_URL"))["path"], 1) : env('DB_DATABASE'),
-            'username'  => getenv("JAWSDB_URL") ? parse_url(getenv("DATABASE_URL"))["user"] : env('DB_USERNAME'),
-            'password'  => getenv("JAWSDB_URL") ? parse_url(getenv("DATABASE_URL"))["pass"] : env('DB_PASSWORD'),
+            'host'      => getenv("DATABASE_URL") ? parse_url(getenv("DATABASE_URL"))["host"] : env('DB_HOST'),
+            'database'  => getenv("DATABASE_URL") ? substr(parse_url(getenv("DATABASE_URL"))["path"], 1) : env('DB_DATABASE'),
+            'username'  => getenv("DATABASE_URL") ? parse_url(getenv("DATABASE_URL"))["user"] : env('DB_USERNAME'),
+            'password'  => getenv("DATABASE_URL") ? parse_url(getenv("DATABASE_URL"))["pass"] : env('DB_PASSWORD'),
             'charset'  => 'utf8',
             'prefix'   => '',
             'schema'   => 'public',
@@ -115,8 +115,10 @@ return [
         'cluster' => false,
 
         'default' => [
-            'host'     => '127.0.0.1',
-            'port'     => 6379,
+            'host'     => getenv("REDIS_URL") ? parse_url(getenv("REDIS_URL"))["host"] : '127.0.0.1',
+            'port'     => getenv("REDIS_URL") ? parse_url(getenv("REDIS_URL"))["port"] : 6379,
+            'username' => getenv("REDIS_URL") ? parse_url(getenv("REDIS_URL"))["user"] : '',
+            'password' => getenv("REDIS_URL") ? parse_url(getenv("REDIS_URL"))["pass"] : '',
             'database' => 0,
         ],
 
