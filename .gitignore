@@ -1,16 +1,3 @@
-/config/staging
-/config/development
-/config/production
-/config/fortrabbit
-/config/ubuntu
-/config/packages/anahkiasen/rocketeer/
-/public/logo
-/public/build
-/public/packages
-/public/vendor
-/storage
-/bootstrap/compiled.php
-/bootstrap/environment.php
 /vendor
 /node_modules
 /.DS_Store
@@ -21,7 +8,6 @@ Thumbs.db
 
 /error_log
 /auth.json
-/public/error_log
 
 /ninja.sublime-project
 /ninja.sublime-workspace
