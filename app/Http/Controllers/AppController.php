@@ -40,7 +40,7 @@ class AppController extends BaseController
     public function showSetup()
     {
         if (Utils::isNinjaProd() || (Utils::isDatabaseSetup() && Account::count() > 0)) {
-            return Redirect::to('/');
+            // return Redirect::to('/');
         }
 
         return View::make('setup');
