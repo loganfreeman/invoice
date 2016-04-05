@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "e5e8524886bd38794a15e406acc3745a",
-    "content-hash": "6b3f343959ba3f330c425325574dfe28",
+    "hash": "dfcfcc2c7a8307f5330ddc57dda9292d",
+    "content-hash": "b8b260ef797e0b87deafbfa41fd0928d",
     "packages": [
         {
             "name": "agmscode/omnipay-agms",
@@ -3815,7 +3815,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/thephpleague/omnipay-2checkout/zipball/77b316bd08c6b7a1e93721f15d1bfbd21a62ba6b",
+                "url": "https://api.github.com/repos/thephpleague/omnipay-2checkout/zipball/b27d2823d052f5c227eeb29324bb564cfdb8f9af",
                 "reference": "e9c079c2dde0d7ba461903b3b7bd5caf6dee1248",
                 "shasum": ""
             },
@@ -5746,6 +5746,56 @@
                 "xlsx"
             ],
             "time": "2015-05-01 07:00:55"
+        },
+        {
+            "name": "predis/predis",
+            "version": "v1.0.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/nrk/predis.git",
+                "reference": "84060b9034d756b4d79641667d7f9efe1aeb8e04"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/nrk/predis/zipball/84060b9034d756b4d79641667d7f9efe1aeb8e04",
+                "reference": "84060b9034d756b4d79641667d7f9efe1aeb8e04",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.2"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "~4.0"
+            },
+            "suggest": {
+                "ext-curl": "Allows access to Webdis when paired with phpiredis",
+                "ext-phpiredis": "Allows faster serialization and deserialization of the Redis protocol"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Predis\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Daniele Alessandri",
+                    "email": "suppakilla@gmail.com",
+                    "homepage": "http://clorophilla.net"
+                }
+            ],
+            "description": "Flexible and feature-complete PHP client library for Redis",
+            "homepage": "http://github.com/nrk/predis",
+            "keywords": [
+                "nosql",
+                "predis",
+                "redis"
+            ],
+            "time": "2015-07-30 18:34:15"
         },
         {
             "name": "psr/http-message",
