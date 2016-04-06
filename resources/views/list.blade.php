@@ -22,14 +22,14 @@
 		      ['label' => trans('texts.archive_'.$entityType), 'url' => 'javascript:submitForm("archive")'],
 		      ['label' => trans('texts.delete_'.$entityType), 'url' => 'javascript:submitForm("delete")'],
 		    ])->withAttributes(['class'=>'archive'])->split() !!}
-	
+
 	&nbsp;<label for="trashed" style="font-weight:normal; margin-left: 10px;">
-		<input id="trashed" type="checkbox" onclick="setTrashVisible()" 
+		<input id="trashed" type="checkbox" onclick="setTrashVisible()"
 			{{ Session::get("show_trash:{$entityType}") ? 'checked' : ''}}/>&nbsp; {{ trans('texts.show_archived_deleted')}} {{ Utils::transFlowText($entityType.'s') }}
 	</label>
 
 	<div id="top_right_buttons" class="pull-right">
-		<input id="tableFilter" type="text" style="width:140px;margin-right:17px;background-color: white !important" 
+		<input id="tableFilter" type="text" style="width:140px;margin-right:17px;background-color: white !important"
             class="form-control pull-left" placeholder="{{ trans('texts.filter') }}" value="{{ Input::get('filter') }}"/>
         @if (Auth::user()->isPro() && $entityType == ENTITY_INVOICE)
             {!! Button::normal(trans('texts.quotes'))->asLinkTo(URL::to('/quotes'))->appendIcon(Icon::create('list')) !!}
@@ -43,30 +43,30 @@
 		@if (Auth::user()->hasPermission('create_all'))
         	{!! Button::primary(trans("texts.new_$entityType"))->asLinkTo(URL::to("/{$entityType}s/create"))->appendIcon(Icon::create('plus-sign')) !!}
 		@endif
-        
+
 	</div>
 
-	{!! Datatable::table()		
+	{!! Datatable::table()
     	->addColumn($columns)
-    	->setUrl(route('api.' . $entityType . 's'))    	
+    	->setUrl(route('api.' . str_plural($entityType)))    	
         ->setCustomValues('rightAlign', isset($rightAlign) ? $rightAlign : [])
     	->setOptions('sPaginationType', 'bootstrap')
         ->setOptions('aaSorting', [[isset($sortCol) ? $sortCol : '1', 'desc']])
     	->render('datatable') !!}
-    
+
     {!! Former::close() !!}
 
     <script type="text/javascript">
 
 	function submitForm(action) {
 		if (action == 'delete') {
-            if (!confirm('{!! trans("texts.are_you_sure") !!}')) {			
+            if (!confirm('{!! trans("texts.are_you_sure") !!}')) {
 				return;
 			}
-		}		
+		}
 
 		$('#action').val(action);
-		$('form.listForm').submit();		
+		$('form.listForm').submit();
 	}
 
 	function deleteEntity(id) {
@@ -117,8 +117,8 @@
         var searchTimeout = false;
 
         var oTable0 = $('#DataTables_Table_0').dataTable();
-        var oTable1 = $('#DataTables_Table_1').dataTable(); 
-        function filterTable(val) { 
+        var oTable1 = $('#DataTables_Table_1').dataTable();
+        function filterTable(val) {
             if (val == tableFilter) {
                 return;
             }
@@ -140,10 +140,10 @@
             filterTable($('#tableFilter').val());
         }
 
-        window.onDatatableReady = function() {      
+        window.onDatatableReady = function() {
             $(':checkbox').click(function() {
                 setBulkActionsEnabled();
-            }); 
+            });
 
             $('tbody tr').unbind('click').click(function(event) {
                 if (event.target.type !== 'checkbox' && event.target.type !== 'button' && event.target.tagName.toLowerCase() !== 'a') {
@@ -169,7 +169,7 @@
         function setBulkActionsEnabled() {
             var buttonLabel = "{{ trans('texts.archive') }}";
             var count = $('tbody :checkbox:checked').length;
-            $('button.archive, button.invoice').prop('disabled', !count); 
+            $('button.archive, button.invoice').prop('disabled', !count);
             if (count) {
                 buttonLabel += ' (' + count + ')';
             }

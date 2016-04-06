@@ -140,6 +140,9 @@ Route::group(['middleware' => 'auth:user'], function() {
     Route::resource('hotels', 'HotelController');
     Route::get('api/hotels/{client_id?}', array('as'=>'api.hotels', 'uses'=>'HotelController@getDatatable'));
 
+    Route::resource('itineraries', 'ItineraryController');
+    Route::get('api/itineraries', array('as'=>'api.itineraries', 'uses'=>'ItineraryController@getDatatable'));
+
     Route::get('quotes/create/{client_id?}', 'QuoteController@create');
     Route::get('quotes/{public_id}/clone', 'InvoiceController@cloneInvoice');
     Route::get('quotes/{public_id}/edit', 'InvoiceController@edit');
@@ -256,6 +259,8 @@ Route::group(['middleware' => 'api', 'prefix' => 'api/v1'], function()
     Route::resource('parks', 'ParkApiController');
     Route::get('hotels', 'HotelApiController@index');
     Route::resource('hotels', 'HotelApiController');
+    Route::get('itineraries', 'ItineraryApiController@index');
+    Route::resource('itineraries', 'ItineraryApiController');
     Route::get('payments', 'PaymentApiController@index');
     Route::resource('payments', 'PaymentApiController');
     Route::get('tasks', 'TaskApiController@index');
