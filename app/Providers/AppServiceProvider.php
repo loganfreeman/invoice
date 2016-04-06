@@ -37,26 +37,54 @@ class AppServiceProvider extends ServiceProvider {
             return '<li'.$class.'><a href="'.URL::to($url).'" '.$extra.'>'.$title.'</a></li>';
         });
 
+				Form::macro('resource_link', function($url, $text, array $links = []){
+					$capitalize = config('former.capitalize_translations');
+					$class = ( Request::is($url) || Request::is($url.'/*') ) ? ' class="active"' : '';
+					if ($capitalize) {
+						$title = ucwords(trans("texts.$text")) ;
+					} else {
+						$title = trans("texts.$text") ;
+					}
+					$str = '<li class="dropdown '.$class.'">
+								 <a href="'.URL::to($url).'" class="dropdown-toggle">'.trans("texts.$text").'</a>';
+
+					$items = [];
+
+					if(!empty($links)){
+						foreach($links as $k => $v) {
+							$items[] = '<li><a href="'.URL::to($k).'">'.trans("texts.".$v).'</a></li>';
+						}
+					}
+
+					if(!empty($items)){
+							$str.= '<ul class="dropdown-menu" id="menu1">'.implode($items).'</ul>';
+					}
+
+					$str .= '</li>';
+
+					return $str;
+				});
+
         Form::macro('tab_link', function($url, $text, $active = false) {
             $class = $active ? ' class="active"' : '';
             return '<li'.$class.'><a href="'.URL::to($url).'" data-toggle="tab">'.$text.'</a></li>';
         });
 
         Form::macro('menu_link', function($type) {
-            $types = $type.'s';
+            $types = str_plural($type);
             $Type = ucfirst($type);
             $Types = ucfirst($types);
             $class = ( Request::is($types) || Request::is('*'.$type.'*')) && !Request::is('*settings*') ? ' active' : '';
 
             $str = '<li class="dropdown '.$class.'">
                    <a href="'.URL::to($types).'" class="dropdown-toggle">'.trans("texts.$types").'</a>';
-                   
+
             $items = [];
-                       
+
             if(Auth::user()->hasPermission('create_all')){
                    $items[] = '<li><a href="'.URL::to($types.'/create').'">'.trans("texts.new_$type").'</a></li>';
             }
-                    
+
             if ($type == ENTITY_INVOICE) {
                 if(!empty($items))$items[] = '<li class="divider"></li>';
                 $items[] = '<li><a href="'.URL::to('recurring_invoices').'">'.trans("texts.recurring_invoices").'</a></li>';
@@ -67,15 +95,12 @@ class AppServiceProvider extends ServiceProvider {
                     if(Invoice::canCreate())$items[] = '<li><a href="'.URL::to('quotes/create').'">'.trans("texts.new_quote").'</a></li>';
                 }
             } else if ($type == ENTITY_CLIENT) {
-                if(!empty($items))$items[] = '<li class="divider"></li>';
-                $items[] = '<li><a href="'.URL::to('credits').'">'.trans("texts.credits").'</a></li>';
-                if(Credit::canCreate())$items[] = '<li><a href="'.URL::to('credits/create').'">'.trans("texts.new_credit").'</a></li>';
             } else if ($type == ENTITY_EXPENSE) {
 				if(!empty($items))$items[] = '<li class="divider"></li>';
                 $items[] = '<li><a href="'.URL::to('vendors').'">'.trans("texts.vendors").'</a></li>';
                 if(Vendor::canCreate())$items[] = '<li><a href="'.URL::to('vendors/create').'">'.trans("texts.new_vendor").'</a></li>';
-			}
-            
+				}
+
             if(!empty($items)){
                 $str.= '<ul class="dropdown-menu" id="menu1">'.implode($items).'</ul>';
             }
@@ -151,7 +176,7 @@ class AppServiceProvider extends ServiceProvider {
 
             return $str . '</ol>';
         });
-        
+
         Validator::extend('positive', function($attribute, $value, $parameters) {
             return Utils::parseFloat($value) >= 0;
         });

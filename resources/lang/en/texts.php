@@ -540,6 +540,11 @@ $LANG = array(
     'last_invoice_sent' => 'Last invoice sent :date',
     'processed_updates' => 'Successfully completed update',
     'tasks' => 'Tasks',
+    'resources' => 'Resources',
+    'itineraries' => 'Itineraries',
+    'new_itinerary' => 'New Itinerary',
+    "parks" => 'Parks',
+    'hotels' => 'Hotels',
     'new_task' => 'New Task',
     'start_time' => 'Start Time',
     'created_task' => 'Successfully created task',
@@ -1057,14 +1062,14 @@ $LANG = array(
     'enable_portal_password_help'=>'Allows you to set a password for each contact. If a password is set, the contact will be required to enter a password before viewing invoices.',
     'send_portal_password'=>'Generate password automatically',
     'send_portal_password_help'=>'If no password is set, one will be generated and sent with the first invoice.',
-    
+
     'expired' => 'Expired',
     'invalid_card_number' => 'The credit card number is not valid.',
     'invalid_expiry' => 'The expiration date is not valid.',
     'invalid_cvv' => 'The CVV is not valid.',
     'cost' => 'Cost',
     'create_invoice_for_sample' => 'Note: create your first invoice to see a preview here.',
-    
+
     // User Permissions
     'owner' => 'Owner',
     'administrator' => 'Administrator',
@@ -1082,8 +1087,8 @@ $LANG = array(
     'create_all_help' => 'Allow user to create and modify records',
     'view_all_help' => 'Allow user to view records they didn\'t create',
     'edit_all_help' => 'Allow user to modify records they didn\'t create',
-    'view_payment' => 'View Payment', 
-   
+    'view_payment' => 'View Payment',
+
     'january' => 'January',
     'february' => 'February',
     'march' => 'March',
@@ -1096,7 +1101,7 @@ $LANG = array(
     'october' => 'October',
     'november' => 'November',
     'december' => 'December',
-    
+
 );
 
 return $LANG;
