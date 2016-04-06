@@ -102,6 +102,7 @@ if (Utils::isReseller()) {
 Route::group(['middleware' => 'auth:user'], function() {
     Route::get('dashboard', 'DashboardController@index');
     Route::get('resources', 'ResourcesController@index');
+    Route::get('parks', 'ParkController@index');
     Route::get('view_archive/{entity_type}/{visible}', 'AccountController@setTrashVisible');
     Route::get('hide_message', 'HomeController@hideMessage');
     Route::get('force_inline_pdf', 'UserController@forcePDFJS');
@@ -132,6 +133,12 @@ Route::group(['middleware' => 'auth:user'], function() {
     Route::get('invoices/{public_id}/clone', 'InvoiceController@cloneInvoice');
     Route::post('invoices/bulk', 'InvoiceController@bulk');
     Route::post('recurring_invoices/bulk', 'InvoiceController@bulk');
+
+    Route::resource('parks', 'ParkController');
+    Route::get('api/parks/{client_id?}', array('as'=>'api.parks', 'uses'=>'ParkController@getDatatable'));
+
+    Route::resource('hotels', 'HotelController');
+    Route::get('api/hotels/{client_id?}', array('as'=>'api.hotels', 'uses'=>'HotelController@getDatatable'));
 
     Route::get('quotes/create/{client_id?}', 'QuoteController@create');
     Route::get('quotes/{public_id}/clone', 'InvoiceController@cloneInvoice');
@@ -245,6 +252,10 @@ Route::group(['middleware' => 'api', 'prefix' => 'api/v1'], function()
     Route::resource('quotes', 'QuoteApiController');
     Route::get('invoices', 'InvoiceApiController@index');
     Route::resource('invoices', 'InvoiceApiController');
+    Route::get('parks', 'ParkApiController@index');
+    Route::resource('parks', 'ParkApiController');
+    Route::get('hotels', 'HotelApiController@index');
+    Route::resource('hotels', 'HotelApiController');
     Route::get('payments', 'PaymentApiController@index');
     Route::resource('payments', 'PaymentApiController');
     Route::get('tasks', 'TaskApiController@index');

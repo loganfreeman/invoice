@@ -1,6 +1,7 @@
 <?php
 
 $LANG = array(
+    'stars' => 'Star',
     'organization' => 'Organization',
     'name' => 'Name',
     'website' => 'Website',
@@ -124,6 +125,8 @@ $LANG = array(
     'new_invoice' => 'New Invoice',
     'new_payment' => 'New Payment',
     'new_credit' => 'New Credit',
+    'new_park' => 'New Park',
+    'new_hotel' => 'New Hotel',
     'contact' => 'Contact',
     'date_created' => 'Date Created',
     'last_login' => 'Last Login',
