@@ -16,6 +16,8 @@ use Datatable;
 use Request;
 use DropdownButton;
 
+use App\Models\Itinerary;
+
 class ItineraryController extends BaseController
 {
     public function index(){
@@ -34,5 +36,28 @@ class ItineraryController extends BaseController
       ];
 
       return response()->view('list', $data);
+    }
+
+    public function create(){
+      if(!$this->checkCreatePermission($response)){
+          return $response;
+      }
+      $itinerary = Itinerary::createNew();
+      $data = [
+          'entityType' => $itinerary->getEntityType(),
+          'invoice' => $itinerary,
+          'method' => 'POST',
+          'url' => 'itinerarys',
+          'title' => trans('texts.new_itinerary'),
+      ];
+      $data = array_merge($data, self::getViewModel());
+      return View::make('itineraries.edit', $data);
+    }
+
+    public function edit(){
+
+    }
+    private static function getViewModel(){
+      return [];
     }
 }
