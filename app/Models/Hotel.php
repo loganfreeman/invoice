@@ -33,7 +33,6 @@ class Hotel extends EntityModel
     public static $fieldCity        = 'city';
     public static $fieldState       = 'state';
     public static $fieldPostalCode  = 'postal_code';
-    public static $fieldNotes       = 'notes';
     public static $fieldCountry     = 'country';
 
     public static function getImportColumns()
@@ -47,16 +46,12 @@ class Hotel extends EntityModel
             Hotel::$fieldState,
             Hotel::$fieldPostalCode,
             Hotel::$fieldCountry,
-            Hotel::$fieldNotes,
         ];
     }
 
     public static function getImportMap()
     {
         return [
-            'first' => 'first_name',
-            'last' => 'last_name',
-            'email' => 'email',
             'mobile|phone' => 'phone',
             'name|organization' => 'name',
             'street2|address2' => 'address2',
@@ -65,7 +60,6 @@ class Hotel extends EntityModel
             'state|province' => 'state',
             'zip|postal|code' => 'postal_code',
             'country' => 'country',
-            'note' => 'notes',
         ];
     }
 

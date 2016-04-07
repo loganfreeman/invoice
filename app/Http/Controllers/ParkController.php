@@ -15,6 +15,8 @@ use URL;
 use Datatable;
 use Request;
 use DropdownButton;
+use App\Models\Park;
+use App\Models\Account;
 
 class ParkController extends BaseController
 {
@@ -34,5 +36,28 @@ class ParkController extends BaseController
       ];
 
       return response()->view('list', $data);
+    }
+
+    public function create(){
+      if(!$this->checkCreatePermission($response)){
+          return $response;
+      }
+      $park = Park::createSimpleModel();
+      $data = [
+          'entityType' => $park->getEntityType(),
+          'invoice' => $park,
+          'method' => 'POST',
+          'url' => 'parks',
+          'title' => trans('texts.new_park'),
+      ];
+      $data = array_merge($data, self::getViewModel());
+      return View::make('parks.edit', $data);
+    }
+
+    public function edit(){
+
+    }
+    private static function getViewModel(){
+      return [];
     }
 }
