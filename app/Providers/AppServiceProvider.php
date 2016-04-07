@@ -1,16 +1,5 @@
 <?php namespace App\Providers;
 
-use Session;
-use Auth;
-use Utils;
-use HTML;
-use Form;
-use URL;
-use Request;
-use Validator;
-use App\Models\Credit;
-use App\Models\Invoice;
-use App\Models\Vendor;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider {

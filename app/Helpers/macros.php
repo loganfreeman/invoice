@@ -1,5 +1,8 @@
 <?php
 
+use App\Models\Credit;
+use App\Models\Invoice;
+use App\Models\Vendor;
 
 Validator::extend('passcheck', function ($attribute, $value, $parameters) {
     return \Hash::check($value, \Auth::user()->getAuthPassword());
