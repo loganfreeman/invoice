@@ -36,7 +36,7 @@
             {!! Former::text('city') !!}
             {!! Former::text('state') !!}
             {!! Former::text('website') !!}
-            {!! Form::styledFile('event_image') !!}
+            {!! Form::styledFile('park_image') !!}
           </div>
 
         </div>
