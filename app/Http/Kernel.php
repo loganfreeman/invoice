@@ -18,6 +18,7 @@ class Kernel extends HttpKernel {
 		'App\Http\Middleware\VerifyCsrfToken',
         'App\Http\Middleware\DuplicateSubmissionCheck',
         'App\Http\Middleware\StartupCheck',
+				'App\Http\Middleware\GeneralChecks',
 	];
 
 	/**
