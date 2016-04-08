@@ -1,77 +1,76 @@
-module.exports = function(grunt) {
-
+module.exports = function (grunt) {
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
-    dump_dir: (function() {
-      var out = {};
-      
-      grunt.file.expand({ filter: 'isDirectory'}, 'public/fonts/invoice-fonts/*').forEach(function(path) {
+    dump_dir: (function () {
+      var out = {}
+
+      grunt.file.expand({ filter: 'isDirectory'}, 'public/fonts/invoice-fonts/*').forEach(function (path) {
         var fontName = /[^/]*$/.exec(path)[0],
-            files = {},
-            license='';
-        
+          files = {},
+          license = ''
+
         // Add license text
-        grunt.file.expand({ filter: 'isFile'}, path+'/*.txt').forEach(function(path) {
-            var licenseText = grunt.file.read(path);
+        grunt.file.expand({ filter: 'isFile'}, path + '/*.txt').forEach(function (path) {
+          var licenseText = grunt.file.read(path)
 
-            // Fix anything that could escape from the comment
-            licenseText = licenseText.replace(/\*\//g,'*\\/');
+          // Fix anything that could escape from the comment
+          licenseText = licenseText.replace(/\*\//g, '*\\/')
 
-            license += "/*\n"+licenseText+"\n*/";
-        });
-          
+          license += '/*\n' + licenseText + '\n*/'
+        })
+
         // Create files list
-        files['public/js/vfs_fonts/'+fontName+'.js'] = [path+'/*.ttf'];
-          
+        files['public/js/vfs_fonts/' + fontName + '.js'] = [path + '/*.ttf']
+
         out[fontName] = {
           options: {
-            pre: license+'window.ninjaFontVfs=window.ninjaFontVfs||{};window.ninjaFontVfs.'+fontName+'=',
-            rootPath: path+'/'
+            pre: license + 'window.ninjaFontVfs=window.ninjaFontVfs||{};window.ninjaFontVfs.' + fontName + '=',
+            rootPath: path + '/'
           },
           files: files
-        };
-      });      
-         
+        }
+      })
+
       // Return the computed object
-      return out;
+      return out
     }()),
     concat: {
       options: {
-          process: function(src, filepath) {
-              var basepath = filepath.substring(7, filepath.lastIndexOf('/') + 1);
-              // Fix relative paths for css files
-              if(filepath.indexOf('.css', filepath.length - 4) !== -1) {
-                  return src.replace(/(url\s*[\("']+)\s*([^'"\)]+)(['"\)]+;?)/gi,  function(match, start, url, end, offset, string) {
-                      if(url.indexOf('data:') === 0) {
-                          // Skip data urls
-                          return match;
+        process: function (src, filepath) {
+          var basepath = filepath.substring(7, filepath.lastIndexOf('/') + 1)
+          // Fix relative paths for css files
+          if (filepath.indexOf('.css', filepath.length - 4) !== -1) {
+            return src.replace(/(url\s*[\("']+)\s*([^'"\)]+)(['"\)]+;?)/gi, function (match, start, url, end, offset, string) {
+              if (url.indexOf('data:') === 0) {
+                // Skip data urls
+                return match
 
-                      } else if(url.indexOf('/') === 0) {
-                          // Skip absolute urls
-                          return match;
+              } else if (url.indexOf('/') === 0) {
+                // Skip absolute urls
+                return match
 
-                      } else {
-                          return start + basepath + url + end;
-                      }
-                  });
-
-              // Fix source maps locations
-              } else if(filepath.indexOf('.js', filepath.length - 4) !== -1) {
-                   return src.replace(/(\/[*\/][#@]\s*sourceMappingURL=)([^\s]+)/gi,  function(match, start, url, offset, string) {
-                      if(url.indexOf('/') === 0) {
-                          // Skip absolute urls
-                          return match;
-
-                      } else {
-                          return start + basepath + url;
-                      }
-                  });
-
-              // Don't do anything for unknown file types
               } else {
-                return src;
+                return start + basepath + url + end
               }
-          },
+            })
+
+          // Fix source maps locations
+          } else if (filepath.indexOf('.js', filepath.length - 4) !== -1) {
+            return src.replace(/(\/[*\/][#@]\s*sourceMappingURL=)([^\s]+)/gi, function (match, start, url, offset, string) {
+              if (url.indexOf('/') === 0) {
+                // Skip absolute urls
+                return match
+
+              } else {
+                return start + basepath + url
+              }
+            })
+
+          // Don't do anything for unknown file types
+          } else {
+            return src
+          }
+        },
       },
       js: {
         src: [
@@ -101,28 +100,30 @@ module.exports = function(grunt) {
           'public/vendor/jspdf/dist/jspdf.min.js',
           'public/vendor/moment/min/moment.min.js',
           'public/vendor/moment-timezone/builds/moment-timezone-with-data.min.js',
-          'public/vendor/stacktrace-js/dist/stacktrace-with-polyfills.min.js',
+          'public/vendor/stacktrace-js/dist/stacktrace.min.js',
           'public/vendor/fuse.js/src/fuse.min.js',
-          //'public/vendor/moment-duration-format/lib/moment-duration-format.js',
-          //'public/vendor/handsontable/dist/jquery.handsontable.full.min.js',
-          //'public/vendor/pdfmake/build/pdfmake.min.js',
-          //'public/vendor/pdfmake/build/vfs_fonts.js',
-          //'public/js/vfs_fonts.js',
+          'public/vendor/humane-js/humane.min.js',
+          // 'public/vendor/moment-duration-format/lib/moment-duration-format.js',
+          // 'public/vendor/handsontable/dist/jquery.handsontable.full.min.js',
+          // 'public/vendor/pdfmake/build/pdfmake.min.js',
+          // 'public/vendor/pdfmake/build/vfs_fonts.js',
+          // 'public/js/vfs_fonts.js',
           'public/js/bootstrap-combobox.js',
           'public/js/script.js',
           'public/js/pdf.pdfmake.js',
+          'public/js/common.js',
         ],
         dest: 'public/built.js',
         nonull: true
       },
       js_public: {
         src: [
-        /*
-          'public/js/simpleexpand.js',
-          'public/js/valign.js',
-          'public/js/bootstrap.min.js',
-          'public/js/simpleexpand.js',
-        */
+          /*
+            'public/js/simpleexpand.js',
+            'public/js/valign.js',
+            'public/js/bootstrap.min.js',
+            'public/js/simpleexpand.js',
+          */
           'public/vendor/bootstrap/dist/js/bootstrap.min.js',
           'public/js/bootstrap-combobox.js',
 
@@ -140,13 +141,13 @@ module.exports = function(grunt) {
           'public/vendor/spectrum/spectrum.css',
           'public/css/bootstrap-combobox.css',
           'public/css/typeahead.js-bootstrap.css',
-          //'public/vendor/handsontable/dist/jquery.handsontable.full.css',
+          // 'public/vendor/handsontable/dist/jquery.handsontable.full.css',
           'public/css/style.css',
         ],
         dest: 'public/css/built.css',
         nonull: true,
         options: {
-            process: false
+          process: false
         }
       },
       css_public: {
@@ -161,7 +162,7 @@ module.exports = function(grunt) {
         dest: 'public/css/built.public.css',
         nonull: true,
         options: {
-            process: false
+          process: false
         }
       },
       js_pdf: {
@@ -175,11 +176,11 @@ module.exports = function(grunt) {
         nonull: true
       }
     }
-  });
+  })
 
-  grunt.loadNpmTasks('grunt-contrib-concat');
-  grunt.loadNpmTasks('grunt-dump-dir');
+  grunt.loadNpmTasks('grunt-contrib-concat')
+  grunt.loadNpmTasks('grunt-dump-dir')
 
-  grunt.registerTask('default', ['dump_dir', 'concat']);
+  grunt.registerTask('default', ['dump_dir', 'concat'])
 
-};
+}
