@@ -42,13 +42,15 @@ Form::macro('customCheckbox', function ($name, $value, $checked = false, $label 
 
 Form::macro('styledFile', function ($name, $multiple = false) {
     $out = '<div class="styledFile" id="input-'.$name.'">
-        <div class="input-group">
-            <span class="input-group-btn">
+        <div class="form-group">
+            <span class="col-lg-4 col-sm-4 align-right">
                 <span class="btn btn-primary btn-file">
                     Browse&hellip; <input name="'.$name.'" type="file" '.($multiple ? 'multiple' : '').'>
                 </span>
             </span>
+            <div class="col-lg-8 col-sm-8">
             <input type="text" class="form-control" readonly>
+            </div>
             <span style="display: none;" class="input-group-btn btn-upload-file">
                 <span class="btn btn-success ">
                     Upload
