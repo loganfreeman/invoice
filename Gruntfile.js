@@ -102,7 +102,7 @@ module.exports = function (grunt) {
           'public/vendor/jspdf/dist/jspdf.min.js',
           'public/vendor/moment/min/moment.min.js',
           'public/vendor/moment-timezone/builds/moment-timezone-with-data.min.js',
-          'public/vendor/stacktrace-js/dist/stacktrace-with-promises-and-json-polyfills.min.js',
+          // 'public/vendor/stacktrace-js/dist/stacktrace-with-promises-and-json-polyfills.min.js',
           'public/vendor/fuse.js/src/fuse.min.js',
           'public/vendor/humane-js/humane.min.js',
           // 'public/vendor/moment-duration-format/lib/moment-duration-format.js',

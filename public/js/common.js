@@ -20,6 +20,27 @@ function showHelp (message) {
 function hideMessage () {
   humane.remove()
 }
+/**
+ * Custom file inputs
+ */
+$(document).on('change', '.btn-file :file', function () {
+  var input = $(this),
+    numFiles = input.get(0).files ? input.get(0).files.length : 1,
+    label = input.val().replace(/\\/g, '/').replace(/.*\//, '')
+
+  var input = input.parents('.form-group').find(':text'),
+    log = numFiles > 1 ? numFiles + ' files selected' : label
+  if (input.length) {
+    input.val(log)
+  } else {
+    if (log) {
+      console.log(log)
+    }
+
+  }
+
+})
+
 /*
  * --------------------
  * Create a simple way to show remote dynamic modals from the frontend
