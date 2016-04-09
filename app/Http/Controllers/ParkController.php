@@ -75,9 +75,7 @@ class ParkController extends BaseController
     }
 
     public function show($id){
-      Log::warning("finding park by id => " . $id);
       $park = Park::find($id);
-      Log::warning($park);
 
       Utils::trackViewed($park->getDisplayName(), 'park');
 
@@ -107,14 +105,27 @@ class ParkController extends BaseController
       return View::make('parks.edit', $data);
     }
 
-    public function edit(){
+    public function edit($id){
+      $park = Park::find($id);
 
+      $data = [
+          'park' => $park,
+          'method' => 'PUT',
+          'url' => 'parks/'.$id,
+          'title' => trans('texts.edit_park'),
+      ];
+
+      $data = array_merge($data, self::getViewModel());
+
+      return View::make('parks.edit', $data);
     }
 
     public function bulk() {
-      
+
     }
     private static function getViewModel(){
-      return [];
+      return [
+        'data' => Input::old('data'),
+      ];
     }
 }

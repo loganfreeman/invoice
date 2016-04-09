@@ -32,16 +32,40 @@
       <div class="col-md-10 col-md-offset-1">
         <div class="panel panel-default">
           <div class="panel-body">
-            {!! Former::text('name')->data_bind("attr { placeholder: placeholderName }") !!}
-            {!! Former::text('city') !!}
-            {!! Former::text('state') !!}
-            {!! Former::text('website') !!}
-            {!! Form::styledFile('park_image') !!}
+            {!! Former::text('name')->data_bind("value: name") !!}
+            {!! Former::text('city')->data_bind("value: city") !!}
+            {!! Former::text('state')->data_bind("value: state") !!}
+            {!! Former::text('website')->data_bind("value: website") !!}
+            {!! Form::styledFile('photo_path') !!}
           </div>
 
         </div>
       </div>
     </div>
+
+
+		{!! Former::hidden('data')->data_bind("value: ko.toJSON(model)") !!}
+
+		<script type="text/javascript">
+
+		function ParkModel(data){
+			console.log(data);
+			var self = this;
+			self.mapping = {}
+			if (data) {
+				ko.mapping.fromJS(data, self.mapping, this);
+			}
+		}
+
+		@if ($data)
+        window.model = new ParkModel({!! $data !!});
+    @else
+	    window.model = new ParkModel({!! $park !!});
+    @endif
+
+		ko.applyBindings(model);
+
+		</script>
 
 
     <center class="buttons">

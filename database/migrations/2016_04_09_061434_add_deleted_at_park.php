@@ -24,8 +24,12 @@ class AddDeletedAtPark extends Migration
      */
     public function down()
     {
-        Schema::table('parks', function (Blueprint $table) {
-            //
-        });
+      if (Schema::hasColumn('parks', 'deleted_at'))
+  		{
+  			Schema::table('parks', function($table)
+  			{
+  				$table->dropColumn('deleted_at');
+  			});
+  		}
     }
 }

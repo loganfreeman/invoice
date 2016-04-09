@@ -49,7 +49,7 @@ Form::macro('styledFile', function ($name, $multiple = false) {
                 </span>
             </span>
             <div class="col-lg-8 col-sm-8">
-            <input type="text" class="form-control" readonly>
+            <input type="text" class="form-control" readonly data-bind="value: '.$name.'">
             </div>
             <span style="display: none;" class="input-group-btn btn-upload-file">
                 <span class="btn btn-success ">
