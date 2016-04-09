@@ -165,6 +165,7 @@ return [
 
         'Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider',
         'Davibennun\LaravelPushNotification\LaravelPushNotificationServiceProvider',
+        //'Rap2hpoutre\LaravelLogViewer\LaravelLogViewerServiceProvider',
     ],
 
     /*

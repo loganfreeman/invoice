@@ -19,6 +19,7 @@
 //dd(App::environment());
 //dd(gethostname());
 //Log::error('test');
+//Route::get('logs', '\Rap2hpoutre\LaravelLogViewer\LogViewerController@index');
 
 // Application setup
 Route::get('/setup', 'AppController@showSetup');
@@ -347,6 +348,8 @@ if (!defined('CONTACT_EMAIL')) {
     define('ENTITY_EXPENSE_ACTIVITY', 'expense_activity');
     define('ENTITY_BANK_ACCOUNT', 'bank_account');
     define('ENTITY_BANK_SUBACCOUNT', 'bank_subaccount');
+    define('ENTITY_PARK', 'park');
+    define('ENTITY_HOTEL', 'hotel');
 
     define('PERSON_CONTACT', 'contact');
     define('PERSON_USER', 'user');

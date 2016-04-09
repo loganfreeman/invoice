@@ -53,6 +53,10 @@ class ParkController extends BaseController
       return response()->view('list', $data);
     }
 
+    public function getDatatable(){
+      return $this->parkService->getDatatable(Input::get('sSearch'));
+    }
+
     public function store(CreateParkRequest $request){
       $data = $request->input();
       if(!$this->checkUpdatePermission($data, $response)){

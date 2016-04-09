@@ -15,8 +15,10 @@ class DatatableService
         if ($actions && $showCheckbox) {
             $table->addColumn('checkbox', function ($model) {
                 $can_edit = Auth::user()->hasPermission('edit_all') || (isset($model->user_id) && Auth::user()->id == $model->user_id);
-                
-                return !$can_edit?'':'<input type="checkbox" name="ids[]" value="' . $model->public_id
+
+                $model_id = property_exists($model, 'public_id') ? $model->public_id : $model->id;
+
+                return !$can_edit?'':'<input type="checkbox" name="ids[]" value="' . $model_id
                         . '" ' . Utils::getEntityRowClass($model) . '>';
             });
         }
@@ -48,8 +50,10 @@ class DatatableService
             $hasAction = false;
             $str = '<center style="min-width:100px">';
 
+            $model_id = property_exists($model, 'public_id') ? $model->public_id : $model->id;
+
             $can_edit = Auth::user()->hasPermission('edit_all') || (isset($model->user_id) && Auth::user()->id == $model->user_id);
-            
+
             if (property_exists($model, 'is_deleted') && $model->is_deleted) {
                 $str .= '<button type="button" class="btn btn-sm btn-danger tr-status">'.trans('texts.deleted').'</button>';
             } elseif ($model->deleted_at && $model->deleted_at !== '0000-00-00') {
@@ -99,17 +103,17 @@ class DatatableService
                     $str .= "<li class=\"divider\"></li>";
                 }
 
-                if (($entityType != ENTITY_USER || $model->public_id) && $can_edit) {
-                    $str .= "<li><a href=\"javascript:archiveEntity({$model->public_id})\">"
+                if (($entityType != ENTITY_USER || $model_id) && $can_edit) {
+                    $str .= "<li><a href=\"javascript:archiveEntity({$model_id})\">"
                             . trans("texts.archive_{$entityType}") . "</a></li>";
                 }
             } else if($can_edit) {
-                $str .= "<li><a href=\"javascript:restoreEntity({$model->public_id})\">"
+                $str .= "<li><a href=\"javascript:restoreEntity({$model_id})\">"
                         . trans("texts.restore_{$entityType}") . "</a></li>";
             }
 
             if (property_exists($model, 'is_deleted') && !$model->is_deleted && $can_edit) {
-                $str .= "<li><a href=\"javascript:deleteEntity({$model->public_id})\">"
+                $str .= "<li><a href=\"javascript:deleteEntity({$model_id})\">"
                         . trans("texts.delete_{$entityType}") . "</a></li>";
             }
 
