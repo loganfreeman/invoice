@@ -18,8 +18,21 @@ use DropdownButton;
 use App\Models\Park;
 use App\Models\Account;
 
+use app\Http\Requests\CreateParkRequest;
+
+use App\Ninja\Repositories\ParkRepository;
+use App\Services\ParkService;
+
 class ParkController extends BaseController
 {
+    protected $parkService;
+    protected $parkRepo;
+    protected $model = 'App\Models\Park';
+    public function __construct(ParkRepository $parkRepo, ParkService $parkService){
+
+              $this->parkRepo = $parkRepo;
+              $this->parkService = $parkService;
+    }
     public function index(){
       $data = [
           'title' => trans('texts.parks'),
@@ -36,6 +49,19 @@ class ParkController extends BaseController
       ];
 
       return response()->view('list', $data);
+    }
+
+    public function store(CreateParkRequest $request){
+      $data = $request->input();
+      if(!$this->checkUpdatePermission($data, $response)){
+          return $response;
+      }
+
+      $park = $this->parkService->save($data);
+
+      Session::flash('message', trans('texts.created_park'));
+
+      return redirect()->to($park->getRoute());
     }
 
     public function create(){

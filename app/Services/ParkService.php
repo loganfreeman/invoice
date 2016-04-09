@@ -30,14 +30,6 @@ class ParkService extends BaseService
 
     public function save($data)
     {
-        if (isset($data['client_id']) && $data['client_id']) {
-            $data['client_id'] = Client::getPrivateId($data['client_id']);
-        }
-
-        if (isset($data['vendor_id']) && $data['vendor_id']) {
-            $data['vendor_id'] = Vendor::getPrivateId($data['vendor_id']);
-        }
-
         return $this->ParkRepo->save($data);
     }
 
