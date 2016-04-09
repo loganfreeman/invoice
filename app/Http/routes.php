@@ -137,9 +137,11 @@ Route::group(['middleware' => 'auth:user'], function() {
 
     Route::resource('parks', 'ParkController');
     Route::get('api/parks/{client_id?}', array('as'=>'api.parks', 'uses'=>'ParkController@getDatatable'));
+    Route::post('parks/bulk', 'ParkController@bulk');
 
     Route::resource('hotels', 'HotelController');
     Route::get('api/hotels/{client_id?}', array('as'=>'api.hotels', 'uses'=>'HotelController@getDatatable'));
+    Route::post('hotels/bulk', 'HotelController@bulk');
 
     Route::resource('itineraries', 'ItineraryController');
     Route::get('api/itineraries', array('as'=>'api.itineraries', 'uses'=>'ItineraryController@getDatatable'));

@@ -110,6 +110,10 @@ class ParkController extends BaseController
     public function edit(){
 
     }
+
+    public function bulk() {
+      
+    }
     private static function getViewModel(){
       return [];
     }

@@ -73,7 +73,7 @@ class ParkService extends BaseService
             [
                 trans('texts.edit_park'),
                 function ($model) {
-                    return URL::to("Parks/{$model->id}/edit") ;
+                    return URL::to("parks/{$model->id}/edit") ;
                 },
                 function ($model) {
                     return Park::canEditItem($model);
