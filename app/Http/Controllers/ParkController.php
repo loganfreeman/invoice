@@ -18,10 +18,12 @@ use DropdownButton;
 use App\Models\Park;
 use App\Models\Account;
 
-use app\Http\Requests\CreateParkRequest;
+use App\Http\Requests\CreateParkRequest;
 
 use App\Ninja\Repositories\ParkRepository;
 use App\Services\ParkService;
+
+use Log;
 
 class ParkController extends BaseController
 {
@@ -59,19 +61,40 @@ class ParkController extends BaseController
 
       $park = $this->parkService->save($data);
 
+      if ($request->hasFile('park_image')) {
+
+      }
+
       Session::flash('message', trans('texts.created_park'));
 
       return redirect()->to($park->getRoute());
+    }
+
+    public function show($id){
+      Log::warning("finding park by id => " . $id);
+      $park = Park::find($id);
+      Log::warning($park);
+
+      Utils::trackViewed($park->getDisplayName(), 'park');
+
+      $actionLinks = [
+      ];
+
+      $data = array(
+          'actionLinks'           => $actionLinks,
+          'showBreadcrumbs'       => false,
+          'park'                => $park,
+          'title'                 => trans('texts.view_park'),
+      );
+
+      return View::make('parks.show', $data);
     }
 
     public function create(){
       if(!$this->checkCreatePermission($response)){
           return $response;
       }
-      $park = Park::createSimpleModel();
       $data = [
-          'entityType' => $park->getEntityType(),
-          'invoice' => $park,
           'method' => 'POST',
           'url' => 'parks',
           'title' => trans('texts.new_park'),

@@ -4,6 +4,8 @@ use DB;
 use Cache;
 use App\Ninja\Repositories\BaseRepository;
 
+use App\Models\Park;
+
 class ParkRepository extends BaseRepository
 {
     public function getClassName()
@@ -23,6 +25,9 @@ class ParkRepository extends BaseRepository
 
     public function save($data)
     {
-
+      $park = Park::createSimpleModel();
+      $park->fill($data);
+      $park->save();
+      return $park;
     }
 }
