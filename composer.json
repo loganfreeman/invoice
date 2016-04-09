@@ -75,7 +75,7 @@
 		"codeception/codeception": "*",
 		"codeception/c3": "~2.0",
 		"fzaninotto/faker": "^1.5",
-        "symfony/dom-crawler": "~3.0"
+    "symfony/dom-crawler": "~3.0"
 	},
 	"autoload": {
 		"classmap": [
