@@ -27,17 +27,21 @@
 
     @include('partials.autocomplete_fix')
 
+		@if ($hotel)
+			{!! Former::populate($hotel) !!}
+					{!! Former::hidden('id') !!}
+		@endif
 
     <div class="row">
       <div class="col-md-10 col-md-offset-1">
         <div class="panel panel-default">
           <div class="panel-body">
-            {!! Former::text('name')->data_bind("value: name") !!}
+            {!! Former::text('name') !!}
             {!! Former::text('address1') !!}
             {!! Former::text('address2') !!}
-            {!! Former::text('city')->data_bind("value: city") !!}
-            {!! Former::text('state')->data_bind("value: state") !!}
-            {!! Former::text('website')->data_bind("value: website") !!}
+            {!! Former::text('city') !!}
+            {!! Former::text('state') !!}
+            {!! Former::text('website') !!}
             {!! Form::styledFile('photo_path') !!}
           </div>
 
@@ -50,7 +54,7 @@
 
 		<script type="text/javascript">
 
-		function ParkModel(data){
+		function HotelModel(data){
 			var self = this;
 			self.mapping = {}
 			if (data) {
@@ -59,9 +63,9 @@
 		}
 
 		@if ($data)
-      window.model = new ParkModel({!! $data !!});
+      window.model = new HotelModel({!! $data !!});
     @elseif ($hotel)
-	    window.model = new ParkModel({!! $hotel !!});
+	    window.model = new HotelModel({!! $hotel !!});
     @endif
 
 		if(window.model){
