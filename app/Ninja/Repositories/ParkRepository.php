@@ -57,4 +57,11 @@ class ParkRepository extends BaseRepository
       $park->save();
       return $park;
     }
+
+    public function update($id, $data){
+      $park = Park::find($id);
+      $park->fill($data);
+      $park->save();
+      return $park;
+    }
 }

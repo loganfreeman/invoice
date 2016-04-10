@@ -123,7 +123,7 @@ class ParkController extends BaseController
     public function update(CreateParkRequest $request, $id){
       $data = $request->input();
 
-      $park = $this->parkService->save($data);
+      $park = $this->parkService->update($id, $data);
 
       Session::flash('message', trans('texts.updated_park'));
 

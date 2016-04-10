@@ -30,6 +30,10 @@ class ParkService extends BaseService
         return $this->parkRepo->save($data);
     }
 
+    public function update($id, $data) {
+      return $this->parkRepo->update($id, $data);
+    }
+
     public function getDatatable($search)
     {
         $query = $this->parkRepo->find($search);
