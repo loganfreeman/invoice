@@ -60,8 +60,11 @@ class ParkController extends BaseController
 
     public function store(CreateParkRequest $request){
       $data = $request->input();
-      if(!$this->checkUpdatePermission($data, $response)){
-          return $response;
+
+      if(!$this->parkService->canCreate($data)){
+        $errorMessage = trans('texts.park_name_unique');
+        Session::flash('error', $errorMessage);
+        return redirect()->back()->withInput();
       }
 
       $park = $this->parkService->save($data);

@@ -25,6 +25,12 @@ class ParkService extends BaseService
         return $this->parkRepo;
     }
 
+    public function canCreate($data){
+      $park = Park::where('name', $data['name'])->first();
+
+      return is_null($park);
+    }
+
     public function save($data)
     {
         return $this->parkRepo->save($data);
