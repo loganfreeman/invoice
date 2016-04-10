@@ -7,7 +7,7 @@
         <style>
           #map {
             width: 100%;
-            height: 200px;
+            height: 400px;
             border-width: 1px;
             border-style: solid;
             border-color: #ddd;
@@ -49,7 +49,7 @@
     <div class="panel panel-default">
     <div class="panel-body">
 	<div class="row">
-		<div class="col-md-3">
+		<div class="col-md-9">
 			<h3>{{ trans('texts.details') }}</h3>
 
             @if ($park->getCityState())
