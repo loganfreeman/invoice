@@ -30,7 +30,8 @@ class ParkRepository extends BaseRepository
                       'parks.city',
                       'parks.state',
                       'parks.country',
-                      'parks.deleted_at'
+                      'parks.deleted_at',
+                      'parks.website'
                   );
 
       if (!\Session::get('show_trash:park')) {

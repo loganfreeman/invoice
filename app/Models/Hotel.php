@@ -34,6 +34,7 @@ class Hotel extends EntityModel
     public static $fieldState       = 'state';
     public static $fieldPostalCode  = 'postal_code';
     public static $fieldCountry     = 'country';
+    public static $fieldWebsite     = 'website';
 
     public static function getImportColumns()
     {
@@ -46,6 +47,7 @@ class Hotel extends EntityModel
             Hotel::$fieldState,
             Hotel::$fieldPostalCode,
             Hotel::$fieldCountry,
+            Hotel::$fieldWebsite,
         ];
     }
 
@@ -60,6 +62,7 @@ class Hotel extends EntityModel
             'state|province' => 'state',
             'zip|postal|code' => 'postal_code',
             'country' => 'country',
+            'website' => 'website',
         ];
     }
 
@@ -76,8 +79,7 @@ class Hotel extends EntityModel
 
     public function getCityState()
     {
-        $swap = $this->country && $this->country->swap_postal_code;
-        return Utils::cityStateZip($this->city, $this->state, $this->postal_code, $swap);
+        return $this->city . ' , ' . $this->state;
     }
 
     public function getEntityType()
@@ -112,6 +114,11 @@ class Hotel extends EntityModel
         } else {
             return $this->created_at->format('m/d/y h:i a');
         }
+    }
+
+    public function getRoute()
+    {
+        return "/hotels/{$this->id}";
     }
 
 }
