@@ -326,6 +326,13 @@ function convertDataURIToBinary(dataURI) {
 }
 
 if (window.ko) {
+  ko.bindingHandlers.filepath = {
+    init: function(element, valueAccessor) {
+      var fullPath = ko.utils.unwrapObservable(valueAccessor());
+      var filename = fullPath.replace(/^.*[\\\/]/, '');
+      $(element).val(filename);
+    }
+  }
   ko.bindingHandlers.dropdown = {
       init: function (element, valueAccessor, allBindingsAccessor) {
          var options = allBindingsAccessor().dropdownOptions|| {};
@@ -556,7 +563,7 @@ function formatAddress(city, state, zip, swap) {
         str += zip ? zip + ' ' : '';
         str += city ? city : '';
         str += (city && state) ? ', ' : (city ? ' ' : '');
-        str += state;        
+        str += state;
     } else {
         str += city ? city : '';
         str += (city && state) ? ', ' : (state ? ' ' : '');
@@ -696,7 +703,7 @@ function calculateAmounts(invoice) {
   invoice.discount_amount = discount;
   invoice.tax_amount = tax;
   invoice.item_taxes = taxes;
-  
+
   if (NINJA.parseFloat(invoice.partial)) {
     invoice.balance_amount = roundToTwo(invoice.partial);
   } else {
@@ -1031,7 +1038,7 @@ function truncate(string, length){
    }
 };
 
-// Show/hide the 'Select' option in the datalists 
+// Show/hide the 'Select' option in the datalists
 function actionListHandler() {
     $('tbody tr').mouseover(function() {
         $(this).closest('tr').find('.tr-action').show();
@@ -1097,4 +1104,4 @@ function searchData(data, key, fuzzy) {
     }
     cb(matches);
     }
-}; 
+};
