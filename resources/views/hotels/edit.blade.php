@@ -41,6 +41,7 @@
             {!! Former::text('address2') !!}
             {!! Former::text('city') !!}
             {!! Former::text('state') !!}
+						{!! Former::text('phone') !!}
             {!! Former::text('website') !!}
             {!! Form::styledFile('photo_path') !!}
           </div>

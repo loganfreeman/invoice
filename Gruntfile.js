@@ -77,6 +77,7 @@ module.exports = function (grunt) {
           'public/vendor/jquery/dist/jquery.js',
           'public/vendor/jquery-ui/jquery-ui.min.js',
           'public/vendor/jquery-form/jquery.form.js',
+          'public/vendor/jquery.maskedinput/dist/jquery.maskedinput.js',
           'public/vendor/jquery-backstretch/jquery.backstretch.js',
           'public/vendor/bootstrap/dist/js/bootstrap.min.js',
           'public/vendor/datatables/media/js/jquery.dataTables.js',
