@@ -25,10 +25,8 @@ class HotelService extends BaseService
         return $this->hotelRepo;
     }
 
-    public function canCreate($data){
-      $park = Hotel::where('name', $data['name'])->first();
-
-      return is_null($park);
+    public function checkRecordExists($data){
+      return Hotel::where('name', $data['name'])->first();
     }
 
     public function save($data)

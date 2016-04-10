@@ -57,7 +57,7 @@ class HotelController extends BaseController
   public function store(CreateHotelRequest $request){
     $data = $request->input();
 
-    if(!$this->hotelService->canCreate($data)){
+    if($this->hotelService->checkRecordExists($data)){
       $errorMessage = trans('texts.hotel_name_unique');
       Session::flash('error', $errorMessage);
       return redirect()->back()->withInput();
