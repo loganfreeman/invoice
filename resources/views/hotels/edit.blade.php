@@ -41,7 +41,7 @@
             {!! Former::text('address2') !!}
             {!! Former::text('city') !!}
             {!! Former::text('state') !!}
-						{!! Former::text('phone') !!}
+						{!! Former::tel('phone') !!}
             {!! Former::text('website') !!}
             {!! Form::styledFile('photo_path') !!}
           </div>
@@ -72,6 +72,10 @@
 		if(window.model){
 			ko.applyBindings(window.model);
 		}
+
+		$(function(){
+			$("[type=tel]").mask("(999) 999-9999");
+		})
 
 		</script>
 
