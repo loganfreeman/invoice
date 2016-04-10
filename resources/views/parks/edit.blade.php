@@ -18,7 +18,7 @@
 
 <div class="row">
 
-  {!! Former::open($url)
+  {!! Former::open_for_files($url)
             ->autocomplete('off')
             ->rules(
                 []

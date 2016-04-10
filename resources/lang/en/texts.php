@@ -129,6 +129,7 @@ $LANG = array(
     'edit_park' => 'Edit Park',
     'archive_park' => 'Archive Park',
     'delete_park' => 'Delete Park',
+    'updated_park' => 'Successfully updated park',
     'new_hotel' => 'New Hotel',
     'contact' => 'Contact',
     'date_created' => 'Date Created',

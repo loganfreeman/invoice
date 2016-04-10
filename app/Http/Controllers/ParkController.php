@@ -24,6 +24,7 @@ use App\Ninja\Repositories\ParkRepository;
 use App\Services\ParkService;
 
 use Log;
+use Image;
 
 class ParkController extends BaseController
 {
@@ -125,9 +126,35 @@ class ParkController extends BaseController
 
       $park = $this->parkService->update($id, $data);
 
+
+      if ($request->hasFile('photo_path')) {
+        $the_file = \File::get($request->file('photo_path')->getRealPath());
+        $file_name = 'park_image-'.md5(microtime()).'.'.strtolower($request->file('photo_path')->getClientOriginalExtension());
+
+        $relative_path_to_file = config('ninja.park_photo_path').'/'.$file_name;
+        $full_path_to_file = public_path().'/'.$relative_path_to_file;
+
+        $img = Image::make($the_file);
+
+        $img->resize(1000, null, function ($constraint) {
+            $constraint->aspectRatio();
+            $constraint->upsize();
+        });
+
+        $img->save($full_path_to_file);
+        $park->photo_path = $full_path_to_file;
+        $park->save();
+      }
+
+
+
       Session::flash('message', trans('texts.updated_park'));
 
       return redirect()->to($park->getRoute());
+    }
+
+    private function saveParkImage(){
+
     }
 
     public function bulk() {
