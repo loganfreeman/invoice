@@ -25,17 +25,22 @@
             )->addClass('col-md-12 warn-on-exit')
             ->method($method) !!}
 
-    @include('partials.autocomplete_fix')
+				@include('partials.autocomplete_fix')
+
+				@if ($park)
+					{!! Former::populate($park) !!}
+			        {!! Former::hidden('id') !!}
+				@endif
 
 
     <div class="row">
       <div class="col-md-10 col-md-offset-1">
         <div class="panel panel-default">
           <div class="panel-body">
-            {!! Former::text('name')->data_bind("value: name") !!}
-            {!! Former::text('city')->data_bind("value: city") !!}
-            {!! Former::text('state')->data_bind("value: state") !!}
-            {!! Former::text('website')->data_bind("value: website") !!}
+            {!! Former::text('name') !!}
+            {!! Former::text('city') !!}
+            {!! Former::text('state') !!}
+            {!! Former::text('website') !!}
             {!! Form::styledFile('photo_path') !!}
           </div>
 
