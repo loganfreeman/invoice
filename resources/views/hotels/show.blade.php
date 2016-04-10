@@ -3,7 +3,7 @@
 @section('head')
     @parent
 
-    @if ($park->hasAddress())
+    @if ($hotel->hasAddress())
         <style>
           #map {
             width: 100%;
@@ -22,20 +22,20 @@
 @section('content')
 
 	<div class="pull-right">
-		{!! Former::open('parks/bulk')->addClass('mainForm') !!}
+		{!! Former::open('hotels/bulk')->addClass('mainForm') !!}
 		<div style="display:none">
 			{!! Former::text('action') !!}
-			{!! Former::text('id')->value($park->id) !!}
+			{!! Former::text('id')->value($hotel->id) !!}
 		</div>
 
-		@if ($park->trashed())
-			{!! Button::primary(trans('texts.restore_park'))->withAttributes(['onclick' => 'onRestoreClick()']) !!}
+		@if ($hotel->trashed())
+			{!! Button::primary(trans('texts.restore_hotel'))->withAttributes(['onclick' => 'onRestoreClick()']) !!}
 		@else
-		    {!! DropdownButton::normal(trans('texts.edit_park'))
+		    {!! DropdownButton::normal(trans('texts.edit_hotel'))
                 ->withAttributes(['class'=>'normalDropDown'])
                 ->withContents([
-			      ['label' => trans('texts.archive_park'), 'url' => "javascript:onArchiveClick()"],
-			      ['label' => trans('texts.delete_park'), 'url' => "javascript:onDeleteClick()"],
+			      ['label' => trans('texts.archive_hotel'), 'url' => "javascript:onArchiveClick()"],
+			      ['label' => trans('texts.delete_hotel'), 'url' => "javascript:onDeleteClick()"],
 			    ]
 			  )->split() !!}
 
@@ -45,22 +45,22 @@
 	</div>
 
 
-	<h2>{{ $park->getDisplayName() }}</h2>
+	<h2>{{ $hotel->getDisplayName() }}</h2>
     <div class="panel panel-default">
     <div class="panel-body">
 	<div class="row">
 		<div class="col-md-3">
 			<h3>{{ trans('texts.details') }}</h3>
 
-            @if ($park->getCityState())
-                {{ $park->getCityState() }}<br/>
+            @if ($hotel->getCityState())
+                {{ $hotel->getCityState() }}<br/>
             @endif
-            @if ($park->country)
-                {{ $park->country }}<br/>
+            @if ($hotel->country)
+                {{ $hotel->country }}<br/>
             @endif
 
-		  	@if ($park->website)
-		  	   <p>{!! Utils::formatWebsite($park->website) !!}</p>
+		  	@if ($hotel->website)
+		  	   <p>{!! Utils::formatWebsite($hotel->website) !!}</p>
             @endif
 
 		</div>
@@ -70,7 +70,7 @@
     </div>
     </div>
 
-    @if ($park->hasAddress())
+    @if ($hotel->hasAddress())
         <div id="map"></div>
         <br/>
     @endif
@@ -81,23 +81,23 @@
 
 	$(function() {
 		$('.normalDropDown:not(.dropdown-toggle)').click(function() {
-			window.location = '{{ URL::to('parks/' . $park->id . '/edit') }}';
+			window.location = '{{ URL::to('hotels/' . $hotel->id . '/edit') }}';
 		});
 		$('.primaryDropDown:not(.dropdown-toggle)').click(function() {
-			window.location = '{{ URL::to('expenses/create/' . $park->id ) }}';
+			window.location = '{{ URL::to('expenses/create/' . $hotel->id ) }}';
 		});
 
         // load datatable data when tab is shown and remember last tab selected
         $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
           var target = $(e.target).attr("href") // activated tab
           target = target.substring(1);
-          localStorage.setItem('park_tab', target);
+          localStorage.setItem('hotel_tab', target);
           if (!loadedTabs.hasOwnProperty(target)) {
             loadedTabs[target] = true;
             window['load_' + target]();
           }
         });
-        var tab = localStorage.getItem('park_tab');
+        var tab = localStorage.getItem('hotel_tab');
         if (tab && tab != 'activity') {
             $('.nav-tabs a[href="#' + tab.replace('#', '') + '"]').tab('show');
         } else {
@@ -122,7 +122,7 @@
 		}
 	}
 
-    @if ($park->hasAddress())
+    @if ($hotel->hasAddress())
         function initialize() {
             var mapCanvas = document.getElementById('map');
             var mapOptions = {
@@ -132,7 +132,7 @@
             };
 
             var map = new google.maps.Map(mapCanvas, mapOptions)
-            var address = "{{ "{$park->address1} {$park->address2} {$park->city} {$park->state} {$park->postal_code} " . $park->country }}";
+            var address = "{{ "{$hotel->address1} {$hotel->address2} {$hotel->city} {$hotel->state} {$hotel->postal_code} " . $hotel->country }}";
 
             geocoder = new google.maps.Geocoder();
             geocoder.geocode( { 'address': address}, function(results, status) {
