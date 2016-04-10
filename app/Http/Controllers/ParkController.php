@@ -137,8 +137,8 @@ class ParkController extends BaseController
         $the_file = \File::get($request->file('photo_path')->getRealPath());
         $file_name = 'park_image-'.md5(microtime()).'.'.strtolower($request->file('photo_path')->getClientOriginalExtension());
 
-        $relative_path_to_file = config('ninja.park_photo_path').'/'.$file_name;
-        $full_path_to_file = public_path().'/'.$relative_path_to_file;
+        $relative_path_to_file = rtrim(config('ninja.park_photo_path'), '/').'/'.$file_name;
+        $full_path_to_file = rtrim(public_path(), '/').'/'.$relative_path_to_file;
 
         $img = Image::make($the_file);
 
