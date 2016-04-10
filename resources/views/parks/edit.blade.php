@@ -57,12 +57,14 @@
 		}
 
 		@if ($data)
-        window.model = new ParkModel({!! $data !!});
-    @else
+      window.model = new ParkModel({!! $data !!});
+    @elseif ($park)
 	    window.model = new ParkModel({!! $park !!});
     @endif
 
-		ko.applyBindings(model);
+		if(window.model){
+			ko.applyBindings(window.model);
+		}
 
 		</script>
 

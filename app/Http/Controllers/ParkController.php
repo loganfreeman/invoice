@@ -66,9 +66,7 @@ class ParkController extends BaseController
 
       $park = $this->parkService->save($data);
 
-      if ($request->hasFile('park_image')) {
-
-      }
+      $this->saveParkImage($park, $request);
 
       Session::flash('message', trans('texts.created_park'));
 
@@ -98,6 +96,7 @@ class ParkController extends BaseController
           return $response;
       }
       $data = [
+          'park' => null,
           'method' => 'POST',
           'url' => 'parks',
           'title' => trans('texts.new_park'),
@@ -126,7 +125,14 @@ class ParkController extends BaseController
 
       $park = $this->parkService->update($id, $data);
 
+      $this->saveParkImage($park, $request);
 
+      Session::flash('message', trans('texts.updated_park'));
+
+      return redirect()->to($park->getRoute());
+    }
+
+    private function saveParkImage($park, $request){
       if ($request->hasFile('photo_path')) {
         $the_file = \File::get($request->file('photo_path')->getRealPath());
         $file_name = 'park_image-'.md5(microtime()).'.'.strtolower($request->file('photo_path')->getClientOriginalExtension());
@@ -145,16 +151,6 @@ class ParkController extends BaseController
         $park->photo_path = $full_path_to_file;
         $park->save();
       }
-
-
-
-      Session::flash('message', trans('texts.updated_park'));
-
-      return redirect()->to($park->getRoute());
-    }
-
-    private function saveParkImage(){
-
     }
 
     public function bulk() {
