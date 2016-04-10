@@ -49,7 +49,6 @@
 		<script type="text/javascript">
 
 		function ParkModel(data){
-			console.log(data);
 			var self = this;
 			self.mapping = {}
 			if (data) {

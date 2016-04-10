@@ -120,6 +120,16 @@ class ParkController extends BaseController
       return View::make('parks.edit', $data);
     }
 
+    public function update(CreateParkRequest $request, $id){
+      $data = $request->input();
+
+      $park = $this->parkService->save($data);
+
+      Session::flash('message', trans('texts.updated_park'));
+
+      return redirect()->to($park->getRoute());
+    }
+
     public function bulk() {
 
     }

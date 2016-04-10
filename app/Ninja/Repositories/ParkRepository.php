@@ -6,6 +6,8 @@ use App\Ninja\Repositories\BaseRepository;
 
 use App\Models\Park;
 
+use Log;
+
 class ParkRepository extends BaseRepository
 {
     public function getClassName()
@@ -18,7 +20,7 @@ class ParkRepository extends BaseRepository
 
     }
 
-    public function find($filter = null)
+    public function find($filter = null, $exact = false)
     {
       $query = DB::table('parks')
                   ->select(
@@ -37,7 +39,11 @@ class ParkRepository extends BaseRepository
 
       if ($filter) {
           $query->where(function ($query) use ($filter) {
-              $query->where('parks.name', 'like', '%'.$filter.'%');
+              if($exact) {
+                $query->where('parks.name', '=', $filter);
+              }else {
+                $query->where('parks.name', 'like', '%'.$filter.'%');
+              }
           });
       }
 
