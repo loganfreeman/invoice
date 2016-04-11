@@ -63,33 +63,33 @@ class StartupCheck
             $count = Session::get(SESSION_COUNTER, 0);
             Session::put(SESSION_COUNTER, ++$count);
 
-            if (isset($_SERVER['REQUEST_URI']) && !Utils::startsWith($_SERVER['REQUEST_URI'], '/news_feed') && !Session::has('news_feed_id')) {
-                $data = false;
-                if (Utils::isNinja()) {
-                    $data = Utils::getNewsFeedResponse();
-                } else {
-                    $file = @file_get_contents(NINJA_APP_URL.'/news_feed/'.Utils::getUserType().'/'.NINJA_VERSION);
-                    $data = @json_decode($file);
-                }
-                if ($data) {
-                    if (version_compare(NINJA_VERSION, $data->version, '<')) {
-                        $params = [
-                            'user_version' => NINJA_VERSION,
-                            'latest_version' => $data->version,
-                            'releases_link' => link_to(RELEASES_URL, 'Invoice Ninja', ['target' => '_blank']),
-                        ];
-                        Session::put('news_feed_id', NEW_VERSION_AVAILABLE);
-                        Session::flash('news_feed_message', trans('texts.new_version_available', $params));
-                    } else {
-                        Session::put('news_feed_id', $data->id);
-                        if ($data->message && $data->id > Auth::user()->news_feed_id) {
-                            Session::flash('news_feed_message', $data->message);
-                        }
-                    }
-                } else {
-                    Session::put('news_feed_id', true);
-                }
-            }
+            // if (isset($_SERVER['REQUEST_URI']) && !Utils::startsWith($_SERVER['REQUEST_URI'], '/news_feed') && !Session::has('news_feed_id')) {
+            //     $data = false;
+            //     if (Utils::isNinja()) {
+            //         $data = Utils::getNewsFeedResponse();
+            //     } else {
+            //         $file = @file_get_contents(NINJA_APP_URL.'/news_feed/'.Utils::getUserType().'/'.NINJA_VERSION);
+            //         $data = @json_decode($file);
+            //     }
+            //     if ($data) {
+            //         if (version_compare(NINJA_VERSION, $data->version, '<')) {
+            //             $params = [
+            //                 'user_version' => NINJA_VERSION,
+            //                 'latest_version' => $data->version,
+            //                 'releases_link' => link_to(RELEASES_URL, 'Invoice Ninja', ['target' => '_blank']),
+            //             ];
+            //             Session::put('news_feed_id', NEW_VERSION_AVAILABLE);
+            //             Session::flash('news_feed_message', trans('texts.new_version_available', $params));
+            //         } else {
+            //             Session::put('news_feed_id', $data->id);
+            //             if ($data->message && $data->id > Auth::user()->news_feed_id) {
+            //                 Session::flash('news_feed_message', $data->message);
+            //             }
+            //         }
+            //     } else {
+            //         Session::put('news_feed_id', true);
+            //     }
+            // }
         }
 
         // Check if we're requesting to change the account's language
@@ -125,7 +125,7 @@ class StartupCheck
                 $productId = Input::get('product_id');
 
                 $data = trim(file_get_contents((Utils::isNinjaDev() ? SITE_URL : NINJA_APP_URL)."/claim_license?license_key={$licenseKey}&product_id={$productId}"));
-                
+
                 if ($productId == PRODUCT_INVOICE_DESIGNS) {
                     if ($data = json_decode($data)) {
                         foreach ($data as $item) {
@@ -177,7 +177,7 @@ class StartupCheck
                 }
             }
         }
-        
+
         // Show message to IE 8 and before users
         if (isset($_SERVER['HTTP_USER_AGENT']) && preg_match('/(?i)msie [2-8]/', $_SERVER['HTTP_USER_AGENT'])) {
             Session::flash('error', trans('texts.old_browser'));
