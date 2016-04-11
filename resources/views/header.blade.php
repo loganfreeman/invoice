@@ -408,7 +408,6 @@
 
     <div class="collapse navbar-collapse" id="navbar-collapse-1">
       <ul class="nav navbar-nav" style="font-weight: bold">
-        {!! Form::nav_link('dashboard', 'dashboard') !!}
         {!! Form::menu_link('client') !!}
         {!! Form::resource_link('resources', 'resources', array("parks" => "parks", "hotels" => "hotels")) !!}
         {!! Form::menu_link('itinerary') !!}
