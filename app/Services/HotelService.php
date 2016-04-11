@@ -8,6 +8,8 @@ use App\Services\BaseService;
 use App\Ninja\Repositories\hotelRepository;
 use App\Models\Hotel;
 
+use Log;
+
 class HotelService extends BaseService
 {
        // Hotels
@@ -45,17 +47,7 @@ class HotelService extends BaseService
         return $this->createDatatable(ENTITY_HOTEL, $query);
     }
 
-    public function getDatatableVendor($vendorPublicId)
-    {
-        $query = $this->hotelRepo->findVendor($vendorPublicId);
-        return $this->datatableService->createDatatable(ENTITY_Hotel,
-                                                        $query,
-                                                        $this->getDatatableColumnsVendor(ENTITY_Hotel,false),
-                                                        $this->getDatatableActionsVendor(ENTITY_Hotel),
-                                                        false);
-    }
-
-    protected function getDatatableColumns($entityType, $hideClient)
+    protected function getDatatableColumns($entityType, $hideHotel)
     {
       return [
         [
@@ -95,12 +87,6 @@ class HotelService extends BaseService
             }
         ],
         [
-            'website',
-            function ($model) {
-                return $model->website;
-            }
-        ],
-        [
             'phone',
             function ($model) {
                 return $model->phone;
@@ -113,9 +99,9 @@ class HotelService extends BaseService
     {
         return [
             [
-                trans('texts.edit_totel'),
+                trans('texts.edit_hotel'),
                 function ($model) {
-                    return URL::to("totels/{$model->id}/edit") ;
+                    return URL::to("hotels/{$model->id}/edit") ;
                 },
                 function ($model) {
                     return Hotel::canEditItem($model);

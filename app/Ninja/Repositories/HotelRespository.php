@@ -31,7 +31,8 @@ class HotelRepository extends BaseRepository
                       'hotels.city',
                       'hotels.state',
                       'hotels.country',
-                      'hotels.deleted_at'
+                      'hotels.deleted_at',
+                      'hotels.website'
                   );
 
       if (!\Session::get('show_trash:hotel')) {

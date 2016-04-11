@@ -42,12 +42,12 @@ class HotelController extends BaseController
         'columns' => Utils::trans([
             'checkbox',
             'name',
+            'address1',
+            'address2',
             'city',
             'state',
             'country',
-            'address1',
-            'address2',
-            'stars',
+            'phone',
             ''
         ]),
     ];
