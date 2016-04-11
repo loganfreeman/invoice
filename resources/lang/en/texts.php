@@ -204,6 +204,7 @@ $LANG = array(
     'csv_file' => 'CSV file',
     'export_clients' => 'Export Client Data',
     'created_park' => 'Successfully created park',
+    'created_hotel' => 'Successfully created hotel',
     'created_clients' => 'Successfully created :count client(s)',
     'updated_settings' => 'Successfully updated settings',
     'removed_logo' => 'Successfully removed logo',

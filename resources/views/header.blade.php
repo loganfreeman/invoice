@@ -475,13 +475,6 @@
                 ])
             @endif
             <li class="divider"></li>
-            @if (Utils::isAdmin())
-              @if (count(session(SESSION_USER_ACCOUNTS)) > 1)
-                  <li>{!! link_to('/manage_companies', trans('texts.manage_companies')) !!}</li>
-              @elseif (!session(SESSION_USER_ACCOUNTS) || count(session(SESSION_USER_ACCOUNTS)) < 5)
-                  <li>{!! link_to('/login?new_company=true', trans('texts.add_company')) !!}</li>
-              @endif
-            @endif
             <li>{!! link_to('#', trans('texts.logout'), array('onclick'=>'logout()')) !!}</li>
           </ul>
         </div>
