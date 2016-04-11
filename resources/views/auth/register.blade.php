@@ -64,7 +64,7 @@
 
     @include('partials.warn_session', ['redirectTo' => '/login'])
 
-    {!! Former::open('auth/register')
+    {!! Former::open('signup')
             ->rules(['email' => 'required|email', 'password' => 'required'])
             ->addClass('form-signup') !!}
 
@@ -77,8 +77,11 @@
         <div class="inner">
             <p>
                 {!! Former::text('email')->placeholder(trans('texts.email_address')) !!}
+                {!! Former::text('username')->placeholder(trans('texts.username')) !!}
+                {!! Former::text('first_name')->placeholder(trans('texts.first_name')) !!}
+                {!! Former::text('last_name')->placeholder(trans('texts.last_name')) !!}
                 {!! Former::password('password')->placeholder(trans('texts.password')) !!}
-                {!! Former::password('password_confirm')->placeholder(trans('texts.password_confirm')) !!}
+                {!! Former::password('password_confirmation')->placeholder(trans('texts.password_confirmation')) !!}
             </p>
 
             <p>{!! Button::success(trans('texts.signup'))
