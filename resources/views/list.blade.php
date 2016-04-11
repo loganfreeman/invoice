@@ -25,7 +25,7 @@
 
 	&nbsp;<label for="trashed" style="font-weight:normal; margin-left: 10px;">
 		<input id="trashed" type="checkbox" onclick="setTrashVisible()"
-			{{ Session::get("show_trash:{$entityType}") ? 'checked' : ''}}/>&nbsp; {{ trans('texts.show_archived_deleted')}} {{ Utils::transFlowText($entityType.'s') }}
+			{{ Session::get("show_trash:{$entityType}") ? 'checked' : ''}}/>&nbsp; {{ trans('texts.show_archived_deleted')}} {{ Utils::transFlowText(str_plural($entityType)) }}
 	</label>
 
 	<div id="top_right_buttons" class="pull-right">
@@ -48,7 +48,7 @@
 
 	{!! Datatable::table()
     	->addColumn($columns)
-    	->setUrl(route('api.' . str_plural($entityType)))    	
+    	->setUrl(route('api.' . str_plural($entityType)))
         ->setCustomValues('rightAlign', isset($rightAlign) ? $rightAlign : [])
     	->setOptions('sPaginationType', 'bootstrap')
         ->setOptions('aaSorting', [[isset($sortCol) ? $sortCol : '1', 'desc']])

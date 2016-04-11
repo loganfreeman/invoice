@@ -104,7 +104,7 @@ Form::macro('nav_link', function($url, $text, $url2 = '', $extra = '') {
 
 Form::macro('resource_link', function($url, $text, array $links = []){
   $capitalize = config('former.capitalize_translations');
-  $class = ( Request::is($url) || Request::is($url.'/*') ) ? ' class="active"' : '';
+  $class = ( Request::is($url) || Request::is($url.'/*') ) ? ' active' : '';
   if ($capitalize) {
     $title = ucwords(trans("texts.$text")) ;
   } else {
